@@ -1,7 +1,8 @@
 from Gui_Texttospeech import *
-from tkinter import *
+import tkinter as tk
 
 if __name__ == "__main__":
-    window = Tk()
+    window = tk.Tk()
     app = Gui_mainpage(window,"Text to speech","600x600").run()
+    
     

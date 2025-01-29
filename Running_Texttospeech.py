@@ -19,8 +19,18 @@ class Running_Texttospeech():
     def language(self,language):
         pass
     
-    def listen(self,entry):
-        self.engine.say(entry)
+    def listen(self,entry,HF,scale,speakingrate):
+        if self.entry_check(entry):
+            voices = self.engine.getProperty('voices')
+            rate = self.engine.getProperty('rate')
+            volume = self.engine.getProperty('volume')
+
+            self.engine.getProperty('voice',voices[HF].id)
+            self.engine.getProperty('rate',speakingrate)
+            self.engine.getProperty('volume',scale)
+            self.engine.say(entry)
+        else:
+            pass
 
     def save(self,entry):
         pass
