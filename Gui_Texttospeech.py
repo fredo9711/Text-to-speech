@@ -18,6 +18,7 @@ class Gui_mainpage ():
         self.fenetre.resizable(width=True,height=True)
         self.entry =""
         self.Gui_widget()
+        self.run = Running_Texttospeech()
         self.fenetre.mainloop()
     
     
@@ -33,8 +34,8 @@ class Gui_mainpage ():
         self._comboboxHF = ttk.Combobox()
         self._comboboxHF["value"] = self.listeHF
         self.boutonEcoute = tk.Button(text="Ecoute")
-        self.BoutonSave = tk.Button(text="sauvegarder")
-        
+        self.BoutonSave = tk.Button(text="sauvegarder", command= lambda: self.run.listen(self._Texte.get("1.0",tk.END).strip(),self._comboboxHF.get(),self._scalevolume.get(),self._scalespeakingrate.get()))
+
         
         self.labelTexte.pack()
         self._Texte.pack()
