@@ -2,14 +2,6 @@ import tkinter as tk
 from tkinter import ttk
 from Running_Texttospeech import *
 
-"""
-
-speaking rate
-volume
-male female
-saving
-
-"""
 class Gui_mainpage ():
     def __init__(self,fenetre,title,geometry):
         self.fenetre = fenetre
@@ -17,24 +9,27 @@ class Gui_mainpage ():
         self.fenetre.title(title)
         self.fenetre.resizable(width=True,height=True)
         self.entry =""
-        self.Gui_widget()
         self.run = Running_Texttospeech()
+        self.Gui_widget()
         self.fenetre.mainloop()
     
     
-    
+    def listen(self):
+        self.run.listen(self._Texte.get("1.0",tk.END).strip(),self._comboboxHF.current(),self._scalevolume.get()/100.,self._scalespeakingrate.get())
+    def save(self):
+        self.run.save(self._Texte.get("1.0",tk.END).strip(),self._comboboxHF.current(),self._scalevolume.get()/100.,self._scalespeakingrate.get())
     def Gui_widget(self):
         self.labelTexte = tk.Label(text="Texte qui va etre convertie en parole")
         self._Texte = tk.Text(width=40, height=10)
         self.labelspeakingrate = tk.Label(text="Reglage pour le speaking rate")
-        self._scalespeakingrate = tk.Scale(from_=0,to=100,orient=tk.HORIZONTAL)
+        self._scalespeakingrate = tk.Scale(from_=0,to=500,orient=tk.HORIZONTAL)
         self.labelvolume = tk.Label(text="Reglage pour le volume")
         self._scalevolume = tk.Scale(from_=0,to=100,orient=tk.HORIZONTAL)
-        self.listeHF = ["Homme","Femme"]
+        self.listeHF = ["Francais","English"]
         self._comboboxHF = ttk.Combobox()
         self._comboboxHF["value"] = self.listeHF
-        self.boutonEcoute = tk.Button(text="Ecoute")
-        self.BoutonSave = tk.Button(text="sauvegarder", command= lambda: self.run.listen(self._Texte.get("1.0",tk.END).strip(),self._comboboxHF.get(),self._scalevolume.get(),self._scalespeakingrate.get()))
+        self.boutonEcoute = tk.Button(text="Ecoute",command = self.listen)
+        self.BoutonSave = tk.Button(text="sauvegarder", command= self.save)
 
         
         self.labelTexte.pack()

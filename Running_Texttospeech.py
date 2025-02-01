@@ -1,11 +1,7 @@
 import pyttsx3
+from tkinter import filedialog # if i want choose by myself the file location
 
-#
-#engine.say("good morning , bonjour $ ù , %")
-#engine.runAndWait()
-#engine = pyttsx3.init()
-#engine.save_to_file('Hello World' , 'test.mp3')
-#engine.runAndWait()
+
 
 class Running_Texttospeech():
 
@@ -16,7 +12,7 @@ class Running_Texttospeech():
         return False if len(entry)==0 else True
     
 
-    def entry_check(self,entry=0):
+    def entry_check(self,entry=''):
         if  self.size_check(entry):
             return True
         return False
@@ -31,19 +27,25 @@ class Running_Texttospeech():
             rate = self.engine.getProperty('rate')
             volume = self.engine.getProperty('volume')
 
-            self.engine.getProperty('voice',voices[HF].id)
-            self.engine.getProperty('rate',speakingrate)
-            self.engine.getProperty('volume',scale)
+            self.engine.setProperty('voice',voices[HF].id)
+            self.engine.setProperty('rate',speakingrate)
+            self.engine.setProperty('volume',scale)
+
 
     def listen(self,entry,HF,scale,speakingrate):
+        
         if self.entry_check(entry):
             self.initialisation_sound(HF,scale,speakingrate)
             self.engine.say(entry)
+            self.engine.runAndWait()
         else:
             pass
 
-    def save(self,entry):
-        pass
+    def save(self,entry,HF,scale,speakingrate):
+        if self.entry_check(entry):
+            self.initialisation_sound(HF,scale,speakingrate)
+            
+            self.engine.save_to_file(entry,entry[0]+".mp3")
+            self.engine.runAndWait()
 
     
-a = print(Running_Texttospeech().entry_check("$"))
